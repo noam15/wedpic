@@ -1,5 +1,6 @@
 import Pic from './Pic';
 import styled from 'styled-components';
+import { useState } from 'react';
 
 const StyledModal = styled.div`
   height: ${(props) => (props.open ? '100%' : 0)};
