@@ -1,0 +1,19 @@
+.HomePage {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll;
+}
+
+.App-header {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: blue;
+  height: 100vh;
+}
+
+.App-grid {
+  display: grid;
+}
