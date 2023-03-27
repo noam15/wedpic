@@ -25,22 +25,22 @@ client.connect((err) => {
   client.close();
 });
 
+const timeFramesCollection = client.db('wedpic').collection('timeframes');
+
 app.post('/addTimeFrame', (req, res) => {
   try {
-    client.db('wedpic').collection('timeframes').insertOne(req.body);
+    timeFramesCollection.insertOne(req.body);
     res.send('success');
   } catch (err) {
     console.error(err);
+    req.send(err);
   }
 });
 
 app.post('/addToAlbum', async (req, res) => {
-  const { resources } = await cloudinary.v2.api.resources();
-  client
-    .db('wedpic')
-    .collection('timeframes')
-    .find({})
-    .forEach((timeFrame) => {
+  try {
+    const { resources } = await cloudinary.v2.api.resources();
+    timeFramesCollection.find({}).forEach((timeFrame) => {
       cloudinary.v2.api.create_folder(timeFrame.title).then(({ path }) => {
         resources.forEach(async (pic) => {
           const actualPic = await axios.get(pic.url, {
@@ -72,11 +72,28 @@ app.post('/addToAlbum', async (req, res) => {
         });
       });
     });
+  } catch (error) {
+    res.send(error);
+  }
 });
 
-app.put('/editTimeFrame', (req, res) => {});
+app.put('/editTimeFrame', (req, res) => {
+  try {
+    timeFramesCollection.updateOne({ title: req.body.title }, req.body);
+    res.send('success');
+  } catch (error) {
+    res.send(error);
+  }
+});
 
-app.delete('/deleteTimeFrame', (req, res) => {});
+app.delete('/deleteTimeFrame', (req, res) => {
+  try {
+    timeFramesCollection.deleteOne({ title: req.body.title });
+    res.send('success');
+  } catch (error) {
+    res.send(error);
+  }
+});
 
 app.listen(8080, () => {
   console.log(`We're up!`);
