@@ -8,6 +8,8 @@ import axios from 'axios';
 
 const app = express();
 app.use(cors());
+app.use(express.json());
+
 cloudinary.v2.config({
 	cloud_name: 'dmjqy7rx4',
 	api_key: '965566542713632',
@@ -91,21 +93,23 @@ app.post('/addToAlbum', async (req, res) => {
 });
 
 app.put('/editTimeFrame', (req, res) => {
+	console.log(req.body);
+	const { _id, change } = req.body;
 	try {
-		timeFramesCollection.updateOne(
-			{ _id: new ObjectId(req.body._id) },
-			req.body.chnage
+		const result = timeFramesCollection.updateOne(
+			{ _id: new ObjectId(_id) },
+			{ $set: change }
 		);
-		res.send('success');
+		res.send(result);
 	} catch (error) {
-		res.send('nope');
+		res.send(req.body);
 	}
 });
 
 app.delete('/deleteTimeFrame', (req, res) => {
 	try {
-		timeFramesCollection.deleteOne({ title: req.body._id });
-		res.send('success');
+		const result = timeFramesCollection.deleteOne({ _id: req.body._id });
+		res.send(result);
 	} catch (error) {
 		res.send(error);
 	}
