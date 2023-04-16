@@ -48,17 +48,17 @@ const Pics = () => {
 	};
 	return (
 		<>
-			<Modal
-				open={showPic}
-				src={selectedPic.src}
-				onClose={() => setShowPic(false)}
-				setPics={setPics}
-				index={selectedPic.index}
-			/>
+			{/* <Modal
+        open={showPic}
+        src={selectedPic.src}
+        onClose={() => setShowPic(false)}
+        setPics={setPics}
+        index={selectedPic.index}
+      /> */}
 			<PicsGrid>
-				{/* {currPics.map((src, key) => (
-          <Pic key={key} src={src} onCLick={openModal} />
-        ))} */}
+				{currPics.map((src, key) => (
+					<Pic key={key} src={src} onCLick={openModal} />
+				))}
 			</PicsGrid>
 			<Buttons>
 				{currPage !== paginatedPics.length - 1 && (
