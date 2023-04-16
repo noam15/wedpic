@@ -46,7 +46,7 @@ const Buttons = styled.div`
 `;
 const Pics = () => {
 	const location = useLocation();
-	const { chosenFiles: initialPics } = location.state;
+	const initialPics = location.state;
 	let [currPage, setCurrPage] = useState(0);
 	let [showPic, setShowPic] = useState(false);
 	let [selectedPic, setSelectedPic] = useState({ src: '', index: -1 });
@@ -79,63 +79,39 @@ const Pics = () => {
 	if (restOfPics) paginatedPics.push(pics.slice(pics.length - restOfPics));
 
 	const openModal = (e) => {
-		setSelectedPic({
-			src: e.target.src,
-			index: pics.indexOf(
-				pics.filter(
-					(item) => item.name == e.target.getAttribute('data-pic-index')
-				)[0]
-			),
-		});
+		setSelectedPic({ src: e.target.src, index: pics.indexOf(e.target.src) });
 		setShowPic(true);
 	};
 	const submitHandler = () => {
 		//TODO: Add Cloudinary API support
-		const data = new FormData();
-		pics.forEach((item) => data.append('files', item, item.name));
-		fetch('https://wedpic-server.onrender.com/addImages', {
-			method: 'post',
-			body: data,
-		})
-			.then((res) => res.text())
-			.then((res) => console.log(res));
 	};
 	return (
 		<>
-			{showPic && (
-				<Modal
-					src={selectedPic.src}
-					onClose={() => setShowPic(false)}
-					setPics={(pics) => {
-						setPics(pics);
-					}}
-					index={selectedPic.index}
-				/>
-			)}
-			<PicsTitle>אישור תמונות</PicsTitle>
+			<Modal
+				open={showPic}
+				src={selectedPic.src}
+				onClose={() => setShowPic(false)}
+				setPics={setPics}
+				index={selectedPic.index}
+			/>
 			<PicsGrid>
-				{currPics.map((src, key) => (
-					<Pic
-						key={key}
-						index={src.name}
-						src={URL.createObjectURL(src)}
-						onClick={openModal}
-					/>
-				))}
+				{/* {currPics.map((src, key) => (
+          <Pic key={key} src={src} onCLick={openModal} />
+        ))} */}
 			</PicsGrid>
 			<Buttons>
 				{currPage !== paginatedPics.length - 1 && (
 					<p className='next' onClick={() => setCurrPage((curr) => curr + 1)}>
-						<FaChevronLeft />{' '}
+						next
 					</p>
 				)}
 				{currPage !== 0 && (
 					<p className='prev' onClick={() => setCurrPage((curr) => curr - 1)}>
-						<FaChevronRight />{' '}
+						prev
 					</p>
 				)}
 			</Buttons>
-			<Button onClick={submitHandler}>העלה</Button>
+			<Button onClick={submitHandler}>Submit</Button>
 		</>
 	);
 };
