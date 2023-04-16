@@ -22,7 +22,7 @@ const FileButton = () => {
 					accept='image/png'
 					className='transperentbutton'
 					onChange={handleFileEvent}
-					disabled={fileLimit}
+					
 				/>
 			</button>
 		</>
