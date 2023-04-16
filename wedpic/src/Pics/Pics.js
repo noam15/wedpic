@@ -39,42 +39,42 @@ const Pics = () => {
   }
   if (restOfPics) paginatedPics.push(pics.slice(pics.length - restOfPics));
 
-  const openModal = (e) => {
-    setSelectedPic({ src: e.target.src, index: pics.indexOf(e.target.src) });
-    setShowPic(true);
-  };
-  const submitHandler = () => {
-    //TODO: Add Cloudinary API support
-  };
-  return (
-    <>
-      <Modal
+	const openModal = (e) => {
+		setSelectedPic({ src: e.target.src, index: pics.indexOf(e.target.src) });
+		setShowPic(true);
+	};
+	const submitHandler = () => {
+		//TODO: Add Cloudinary API support
+	};
+	return (
+		<>
+			{/* <Modal
         open={showPic}
         src={selectedPic.src}
         onClose={() => setShowPic(false)}
         setPics={setPics}
         index={selectedPic.index}
-      />
-      <PicsGrid>
-        {/* {currPics.map((src, key) => (
-          <Pic key={key} src={src} onCLick={openModal} />
-        ))} */}
-      </PicsGrid>
-      <Buttons>
-        {currPage !== paginatedPics.length - 1 && (
-          <p className='next' onClick={() => setCurrPage((curr) => curr + 1)}>
-            next
-          </p>
-        )}
-        {currPage !== 0 && (
-          <p className='prev' onClick={() => setCurrPage((curr) => curr - 1)}>
-            prev
-          </p>
-        )}
-      </Buttons>
-      <Button onClick={submitHandler}>Submit</Button>
-    </>
-  );
+      /> */}
+			<PicsGrid>
+				{currPics.map((src, key) => (
+					<Pic key={key} src={src} onCLick={openModal} />
+				))}
+			</PicsGrid>
+			<Buttons>
+				{currPage !== paginatedPics.length - 1 && (
+					<p className='next' onClick={() => setCurrPage((curr) => curr + 1)}>
+						next
+					</p>
+				)}
+				{currPage !== 0 && (
+					<p className='prev' onClick={() => setCurrPage((curr) => curr - 1)}>
+						prev
+					</p>
+				)}
+			</Buttons>
+			<Button onClick={submitHandler}>Submit</Button>
+		</>
+	);
 };
 
 export default Pics;

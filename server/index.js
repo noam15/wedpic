@@ -1,10 +1,15 @@
 import express from 'express';
-import { MongoClient, ServerApiVersion } from 'mongodb';
-const cloudinary = require('cloudinary');
-import { ExifImage } from 'exif';
+import cors from 'cors';
+import { MongoClient, ServerApiVersion, ObjectId } from 'mongodb';
+import cloudinary from 'cloudinary';
+import pkg from 'exif';
+const { ExifImage } = pkg;
 import axios from 'axios';
 
 const app = express();
+app.use(cors());
+app.use(express.json());
+
 cloudinary.v2.config({
   cloud_name: 'dmjqy7rx4',
   api_key: '965566542713632',
@@ -34,6 +39,25 @@ app.post('/addTimeFrame', (req, res) => {
   } catch (err) {
     console.error(err);
     req.send(err);
+  }
+});
+
+app.get('/getTimeFrames', async (req, res) => {
+  try {
+    const timeFrames = await timeFramesCollection.find({}).toArray();
+    res.send(timeFrames);
+  } catch (err) {
+    console.error(err);
+    req.send(err);
+  }
+});
+
+app.get('/getImagesNames', async (req, res) => {
+  try {
+    const { resources } = await cloudinary.v2.api.resources();
+    res.send(resources.map((pic) => pic.url));
+  } catch (error) {
+    res.send(error);
   }
 });
 
@@ -78,18 +102,23 @@ app.post('/addToAlbum', async (req, res) => {
 });
 
 app.put('/editTimeFrame', (req, res) => {
+  console.log(req.body);
+  const { _id, change } = req.body;
   try {
-    timeFramesCollection.updateOne({ title: req.body.title }, req.body);
-    res.send('success');
+    const result = timeFramesCollection.updateOne(
+      { _id: new ObjectId(_id) },
+      { $set: change }
+    );
+    res.send(result);
   } catch (error) {
-    res.send(error);
+    res.send(req.body);
   }
 });
 
 app.delete('/deleteTimeFrame', (req, res) => {
   try {
-    timeFramesCollection.deleteOne({ title: req.body.title });
-    res.send('success');
+    const result = timeFramesCollection.deleteOne({ _id: req.body._id });
+    res.send(result);
   } catch (error) {
     res.send(error);
   }
