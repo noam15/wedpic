@@ -31,6 +31,7 @@ client.connect((err) => {
 });
 
 const timeFramesCollection = client.db('wedpic').collection('timeframes');
+const picsCollection = client.db('wedpic').collection('pics');
 
 app.post('/addTimeFrame', (req, res) => {
   try {
@@ -54,8 +55,8 @@ app.get('/getTimeFrames', async (req, res) => {
 
 app.get('/getImagesNames', async (req, res) => {
   try {
-    const { resources } = await cloudinary.v2.api.resources();
-    res.send(resources.map((pic) => pic.url));
+    const pics = picsCollection.find({}).toArray();
+    res.send(pics);
   } catch (error) {
     res.send(error);
   }
@@ -125,5 +126,26 @@ app.delete('/deleteTimeFrame', (req, res) => {
 });
 
 app.listen(8080, () => {
+  setInterval(async () => {
+    try {
+      const { resources } = await cloudinary.v2.api.resources();
+      const currPics = await picsCollection.find({}).toArray();
+      const pics = resources.map(({ url }) => {
+        return url;
+      });
+      const picsToSend = [];
+      for (pic of pics) {
+        if (!currPics.includes(pic)) picsToSend.push(pic);
+      }
+      if (picsToSend.length != 0)
+        await picsCollection.insertMany(
+          picsToSend.map((url) => {
+            return { url };
+          })
+        );
+    } catch (error) {
+      res.send(error);
+    }
+  }, 3600000);
   console.log(`We're up!`);
 });
