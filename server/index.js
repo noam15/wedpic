@@ -1,8 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 import { MongoClient, ServerApiVersion, ObjectId } from 'mongodb';
-import axios from 'axios';
-import { google } from 'googleapis';
 import fileUpload from 'express-fileupload';
 import { randomUUID } from 'crypto';
 import { fileTypeFromBuffer } from 'file-type';
