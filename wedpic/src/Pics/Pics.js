@@ -104,16 +104,16 @@ const Pics = () => {
 			<Buttons>
 				{currPage !== paginatedPics.length - 1 && (
 					<p className='next' onClick={() => setCurrPage((curr) => curr + 1)}>
-						next
+						הבא
 					</p>
 				)}
 				{currPage !== 0 && (
 					<p className='prev' onClick={() => setCurrPage((curr) => curr - 1)}>
-						prev
+						הקודם
 					</p>
 				)}
 			</Buttons>
-			<Button onClick={submitHandler}>Submit</Button>
+			<Button onClick={submitHandler}>העלה</Button>
 		</>
 	);
 };
