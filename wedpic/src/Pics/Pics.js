@@ -47,30 +47,6 @@ const Pics = () => {
   let [currPics, setCurrPics] = useState([]);
   let [pics, setPics] = useState(initialPics);
 
-<<<<<<< HEAD
-  let paginatedPics = [];
-  let fullArraysCount = Math.floor(pics.length / 4);
-  let restOfPics = pics.length % 4;
-  useEffect(() => {
-    console.log(pics);
-    paginatedPics = [];
-    fullArraysCount = Math.floor(pics.length / 4);
-    restOfPics = pics.length % 4;
-    for (let i = 0; i < fullArraysCount; i++) {
-      paginatedPics.push(pics.slice(i * 4, (i + 1) * 4));
-    }
-    if (restOfPics) paginatedPics.push(pics.slice(pics.length - restOfPics));
-    if (!paginatedPics[currPage]) {
-      setCurrPage(paginatedPics.length - 1);
-      paginatedPics.pop();
-    }
-    setCurrPics(paginatedPics[currPage]);
-  }, [pics]);
-  for (let i = 0; i < fullArraysCount; i++) {
-    paginatedPics.push(pics.slice(i * 4, (i + 1) * 4));
-  }
-  if (restOfPics) paginatedPics.push(pics.slice(pics.length - restOfPics));
-=======
 	let paginatedPics = [];
 	let fullArraysCount = Math.floor(pics.length / 4);
 	let restOfPics = pics.length % 4;
@@ -95,7 +71,6 @@ const Pics = () => {
 		paginatedPics.push(pics.slice(i * 4, (i + 1) * 4));
 	}
 	if (restOfPics) paginatedPics.push(pics.slice(pics.length - restOfPics));
->>>>>>> 47df85a4245c0ac82d460da1b1a5e8c1c36a3121
 
 	const openModal = (e) => {
 		setSelectedPic({ src: e.target.src, index: pics.indexOf(e.target.src) });
