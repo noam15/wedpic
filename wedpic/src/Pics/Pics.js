@@ -57,9 +57,7 @@ const Pics = () => {
 	let fullArraysCount = Math.floor(pics.length / 4);
 	let restOfPics = pics.length % 4;
 	useEffect(() => {
-		(async () => {
-			console.log(await exifr.parse(pics[0]));
-		})();
+		console.log(pics);
 		paginatedPics = [];
 		fullArraysCount = Math.floor(pics.length / 4);
 		restOfPics = pics.length % 4;
@@ -72,7 +70,7 @@ const Pics = () => {
 			paginatedPics.pop();
 		}
 		setCurrPics(paginatedPics[currPage]);
-	}, [pics, currPage]);
+	}, [pics]);
 	for (let i = 0; i < fullArraysCount; i++) {
 		paginatedPics.push(pics.slice(i * 4, (i + 1) * 4));
 	}
@@ -84,6 +82,14 @@ const Pics = () => {
 	};
 	const submitHandler = () => {
 		//TODO: Add Cloudinary API support
+		const data = new FormData();
+		pics.forEach((item) => data.append('files', item, item.name));
+		fetch('http://localhost:8080/addImages', {
+			method: 'post',
+			body: data,
+		})
+			.then((res) => res.text())
+			.then((res) => console.log(res));
 	};
 	return (
 		<>
@@ -102,16 +108,16 @@ const Pics = () => {
 			<Buttons>
 				{currPage !== paginatedPics.length - 1 && (
 					<p className='next' onClick={() => setCurrPage((curr) => curr + 1)}>
-						next
+						הבא
 					</p>
 				)}
 				{currPage !== 0 && (
 					<p className='prev' onClick={() => setCurrPage((curr) => curr - 1)}>
-						prev
+						הקודם
 					</p>
 				)}
 			</Buttons>
-			<Button onClick={submitHandler}>Submit</Button>
+			<Button onClick={submitHandler}>העלה</Button>
 		</>
 	);
 };
