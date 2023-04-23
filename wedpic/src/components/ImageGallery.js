@@ -1,25 +1,11 @@
 
-import {Cloudinary} from "@cloudinary/url-gen"
-//cld-sample-3p
-
-const imgCloud = new Cloudinary({
-  cloud:{
-    cloudName:'dmjqy7rx4',
-    apiKey:'965566542713632',
-    apiSecret:'Lkkt3Vc3cHhneTZbeXJSauIKdAw'
-  },
-  
-})
 const ImageGallery = () => {
 
+
   const getpics = () => {
-    fetch("http://localhost:8080/getImagesNames",{method:"GET"}).then(list=>{
-      for(uri of list){
-        imgCloud.image(uri)
-      }
+    fetch("http://localhost:8080/getImages",{method:"GET"}).then(list=>{
+      
     })
-    for uri of 
-    imgCloud.image(uri)
   }
 
 
