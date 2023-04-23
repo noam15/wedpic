@@ -4,12 +4,13 @@ import styled from 'styled-components';
 import Pic from '../components/Pic';
 import Modal from '../components/Modal';
 import exifr from 'exifr/dist/full.esm.mjs';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 const Button = styled.button`
 	position: fixed;
 	left: 2em;
 	right: 2em;
-	bottom: 2em;
+	bottom: 4em;
 	border-radius: 5em;
 	border: 0;
 	height: 4em;
@@ -20,14 +21,15 @@ const PicsGrid = styled.div`
 	padding: auto;
 	width: 80vw;
 	margin: auto;
-	margin-top: 20vh;
-	margin-bottom: 20vh;
+	margin-top: 30vh;
+	margin-bottom: 30vh;
 	height: fill-available;
 `;
 const Buttons = styled.div`
 	position: absolute;
-	top: 50%;
+	top: 44vh;
 	margin: 0 5vw;
+	font-size: 2em;
 	width: 90vw;
 	.next {
 		position: absolute;
@@ -89,27 +91,28 @@ const Pics = () => {
 	};
 	return (
 		<>
-			{/* <Modal
-        open={showPic}
-        src={selectedPic.src}
-        onClose={() => setShowPic(false)}
-        setPics={setPics}
-        index={selectedPic.index}
-      /> */}
+			{showPic && (
+				<Modal
+					src={selectedPic.src}
+					onClose={() => setShowPic(false)}
+					setPics={setPics}
+					index={selectedPic.index}
+				/>
+			)}
 			<PicsGrid>
 				{currPics.map((src, key) => (
-					<Pic key={key} src={src} onCLick={openModal} />
+					<Pic key={key} src={URL.createObjectURL(src)} onClick={openModal} />
 				))}
 			</PicsGrid>
 			<Buttons>
 				{currPage !== paginatedPics.length - 1 && (
 					<p className='next' onClick={() => setCurrPage((curr) => curr + 1)}>
-						הבא
+						<FaChevronLeft />{' '}
 					</p>
 				)}
 				{currPage !== 0 && (
 					<p className='prev' onClick={() => setCurrPage((curr) => curr - 1)}>
-						הקודם
+						<FaChevronRight />{' '}
 					</p>
 				)}
 			</Buttons>
