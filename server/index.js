@@ -1,20 +1,26 @@
 import express from 'express';
 import cors from 'cors';
 import { MongoClient, ServerApiVersion, ObjectId } from 'mongodb';
-import cloudinary from 'cloudinary';
+import fileUpload from 'express-fileupload';
+import { randomUUID } from 'crypto';
+import { fileTypeFromBuffer } from 'file-type';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+import * as fs from 'fs';
+
 import pkg from 'exif';
 const { ExifImage } = pkg;
-import axios from 'axios';
+
+const __filename = fileURLToPath(import.meta.url);
+console.log(__filename);
+const __dirname = dirname(__filename);
+console.log(__dirname);
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-
-cloudinary.v2.config({
-  cloud_name: 'dmjqy7rx4',
-  api_key: '965566542713632',
-  api_secret: 'Lkkt3Vc3cHhneTZbeXJSauIKdAw',
-});
+app.use(fileUpload());
+app.use(express.static('uploads'));
 
 const uri =
   'mongodb+srv://hillel:325605384@wedpic.4f6etky.mongodb.net/?retryWrites=true&w=majority';
@@ -32,16 +38,6 @@ client.connect((err) => {
 
 const timeFramesCollection = client.db('wedpic').collection('timeframes');
 
-app.post('/addTimeFrame', (req, res) => {
-  try {
-    timeFramesCollection.insertOne(req.body);
-    res.send('success');
-  } catch (err) {
-    console.error(err);
-    req.send(err);
-  }
-});
-
 app.get('/getTimeFrames', async (req, res) => {
   try {
     const timeFrames = await timeFramesCollection.find({}).toArray();
@@ -52,57 +48,110 @@ app.get('/getTimeFrames', async (req, res) => {
   }
 });
 
-app.get('/getImagesNames', async (req, res) => {
+app.get('/getImages', (req, res) => {
   try {
-    const { resources } = await cloudinary.v2.api.resources();
-    res.send(resources.map((pic) => pic.url));
-  } catch (error) {
-    res.send(error);
-  }
-});
-
-app.post('/addToAlbum', async (req, res) => {
-  try {
-    const { resources } = await cloudinary.v2.api.resources();
-    timeFramesCollection.find({}).forEach((timeFrame) => {
-      cloudinary.v2.api.create_folder(timeFrame.title).then(({ path }) => {
-        resources.forEach(async (pic) => {
-          const actualPic = await axios.get(pic.url, {
-            responseType: 'arraybuffer',
-          });
-          new ExifImage(
-            { image: Buffer.from(actualPic.data, 'utf-8') },
-            (err, metadata) => {
-              if (err) console.error(err);
-              else {
-                const dateAndTime = metadata.exif.DateTimeOriginal.split(' ');
-                const date = dateAndTime[0].replace(':', '/');
-                const time = dateAndTime[1];
-                const imgTakenAt = new Date(date + ' ' + time);
-                const timeFrameStarts = new Date(timeFrame.startTime);
-                const timeFrameEnds = new Date(timeFrame.endTime);
-                if (
-                  imgTakenAt > timeFrameStarts &&
-                  imgTakenAt < timeFrameEnds
-                ) {
-                  cloudinary.v2.uploader.rename(
-                    pic.public_id,
-                    `${path}/${pic.public_id.split('/').at(-1)}`
-                  );
+    const pics = [];
+    let promisesArr = [];
+    fs.readdir(join(__dirname, '/../uploads'), async (err, files) => {
+      files.forEach((file) => {
+        if (fs.statSync(join(__dirname, '/../uploads', file)).isDirectory()) {
+          promisesArr.push(
+            new Promise((resolve, reject) => {
+              fs.readdir(
+                join(__dirname, '/../uploads', file),
+                (err, recurFiles) => {
+                  recurFiles.forEach((recurFile) => {
+                    pics.push(
+                      fs
+                        .readFileSync(
+                          join(__dirname, '/../uploads', file, recurFile)
+                        )
+                        .toString('base64')
+                    );
+                    resolve();
+                  });
                 }
-              }
-            }
+              );
+            })
           );
-        });
+        } else {
+          pics.push(
+            fs
+              .readFileSync(join(__dirname, '/../uploads', file))
+              .toString('base64')
+          );
+        }
       });
+      await Promise.all(promisesArr);
+      console.log(pics.length);
+      res.send(pics);
     });
   } catch (error) {
     res.send(error);
   }
 });
 
+app.post('/addImages', (req, res) => {
+  try {
+    const saveImg = async (img) => {
+      const fileType = await fileTypeFromBuffer(img.data);
+      let subfolder = '';
+      new ExifImage({ image: img.data }, async (err, metadata) => {
+        if (err) console.error(err);
+        else {
+          try {
+            await timeFramesCollection.find({}).forEach((timeFrame) => {
+              const dateAndTime = metadata.exif.DateTimeOriginal.split(' ');
+              const date = dateAndTime[0].replace(':', '/').replace(':', '/');
+              const time = dateAndTime[1];
+              const timeFrameStarts = new Date(parseInt(timeFrame.startTime));
+              const timeFrameEnds = new Date(parseInt(timeFrame.endTime));
+              const imgTakenAt = new Date(date + ' ' + time);
+              imgTakenAt.setFullYear(timeFrameStarts.getFullYear());
+              imgTakenAt.setMonth(timeFrameStarts.getMonth());
+              imgTakenAt.setDate(timeFrameStarts.getDate());
+              if (imgTakenAt >= timeFrameStarts && imgTakenAt < timeFrameEnds) {
+                subfolder = timeFrame.name;
+              }
+            });
+          } catch (err) {
+            console.error(err);
+          }
+        }
+
+        if (subfolder) {
+          const uuid = randomUUID();
+          if (!fs.existsSync(join(__dirname, '/../uploads', subfolder))) {
+            fs.mkdir(join(__dirname, '/../uploads', subfolder), (err, path) => {
+              if (err) console.error(err);
+            });
+          }
+          img.mv(
+            join(
+              __dirname,
+              '/../uploads',
+              subfolder,
+              uuid + '.' + fileType.ext
+            ),
+            (e) => {
+              if (e) console.error(e);
+            }
+          );
+        }
+      });
+    };
+    if (Array.isArray(req.files.files)) {
+      req.files.files.forEach(saveImg);
+    } else {
+      saveImg(req.files.files);
+    }
+    res.send('👍');
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
 app.put('/editTimeFrame', (req, res) => {
-  console.log(req.body);
   const { _id, change } = req.body;
   try {
     const result = timeFramesCollection.updateOne(
@@ -112,15 +161,6 @@ app.put('/editTimeFrame', (req, res) => {
     res.send(result);
   } catch (error) {
     res.send(req.body);
-  }
-});
-
-app.delete('/deleteTimeFrame', (req, res) => {
-  try {
-    const result = timeFramesCollection.deleteOne({ _id: req.body._id });
-    res.send(result);
-  } catch (error) {
-    res.send(error);
   }
 });
 

@@ -8,7 +8,28 @@ const Pic = ({ src, onClick }) => {
 		}
 		return window.btoa(binary);
 	};
-	return <img src={URL.createObjectURL(src)} alt='img' onClick={onClick} />;
+	return (
+		<div
+			className='div-container'
+			style={{
+				maxWidth: '35vw',
+				margin: 'auto',
+				background: '#f6f6f6',
+				height: '35vw',
+				borderRadius: '1em',
+				display: 'flex',
+				justifyContent: 'center',
+				alignItems: 'center',
+			}}
+		>
+			<img
+				style={{ width: '35vw', padding: '.2em' }}
+				src={URL.createObjectURL(src)}
+				alt='img'
+				onClick={onClick}
+			/>
+		</div>
+	);
 };
 
 export default Pic;
