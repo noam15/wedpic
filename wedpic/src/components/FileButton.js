@@ -19,7 +19,7 @@ const FileButton = () => {
 				<input
 					type='file'
 					multiple
-					accept='image/*'
+					accept='image/jpeg'
 					className='transperentbutton'
 					onChange={handleFileEvent}
 				/>

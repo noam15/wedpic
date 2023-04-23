@@ -7,7 +7,8 @@ function HomePage() {
       <div className="HomePage" >
 
         <div className="App-header">
-            <a> headline</a>
+            <a className="headlinestyle"> בר & ישי</a>
+            <p >17.5.2023</p> 
             <p> this is the text you would see.</p>  
         </div>
 

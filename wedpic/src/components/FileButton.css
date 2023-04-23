@@ -1,13 +1,16 @@
 .filebutton {
-  border-radius: 50px;
-  border: 0 solid;
-  background: #c77013;
-  padding: 20px;
-  width: 30vw;
-  height: 5em;
+  border-radius: 40px;
+  border: 0.01em solid;
+  background: #FFFFFF;
+  padding: 1px;
+  border-color: black;
+  width: 60vw;
+  height: 10vh;
   position: fixed;
   bottom: 2em;
-  right: 35vw;
+  font-size: large;
+  color: #000000;
+  font-family: Playfair Display;
 }
 
 .transperentbutton {
