@@ -4,17 +4,31 @@
   height: 100vh;
   width: 100vw;
   overflow-y: scroll;
-  background-color: #4E5648;
+  background-color: #a9a3a2;
   margin: auto;
   align-items: center;
   text-align: center;
+}
+
+.imagediv {
+  background-image: url("../assets/try3.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100vw;
+  height: 80vh;
+}
+.squarediv {
+  background-color: transparent;
+  border-color: #000000;
+  border: 10vh;
 }
 
 .App-header {
   display: flex;
   flex-direction: column;
   width: 100%;
-  background-color: #4E5648;
+
   height: 100vh;
   margin: auto;
   align-items: center;
@@ -29,9 +43,18 @@
   text-align: center;
 }
 
-.headlinestyle{
-  padding: 7vmin;
+.headlinestyle {
+  margin-top: 15vh;
+  font-weight: 600;
   font-size: xx-large;
-  color: #ffffff;
+  color: #000000;
   font-family: Playfair Display;
+}
+
+.imgdiv {
+  text-align: right;
+}
+
+.foterstyle {
+  padding: 3vh;
 }

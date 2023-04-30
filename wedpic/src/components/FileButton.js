@@ -19,10 +19,11 @@ const FileButton = () => {
 				<input
 					type='file'
 					multiple
-					accept='image/jpeg'
+					accept='image/*'
 					className='transperentbutton'
 					onChange={handleFileEvent}
 				/>
+				העלאת תמונות
 			</button>
 		</>
 	);
