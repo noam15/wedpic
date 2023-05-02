@@ -11,6 +11,7 @@ import { dirname, join } from 'path';
 import * as fs from 'fs';
 
 import pkg from 'exif';
+import { setInterval } from 'timers';
 const { ExifImage } = pkg;
 
 const s3 = new S3({ region: 'eu-north-1' });
@@ -50,42 +51,42 @@ app.get('/getTimeFrames', async (req, res) => {
     req.send(err);
   }
 });
+let images = [];
+const imageGetter = async () => {
+  s3.listObjects({ Bucket: bucketName }, function (err, data) {
+    if (err) {
+      console.error(err, err.stack);
+    } else {
+      const imageUrls = [];
+      data.Contents.forEach((obj) => {
+        const key = obj.Key;
+        s3.listObjects({ Bucket: bucketName, Prefix: key }, function (
+          err,
+          folderData
+        ) {
+          folderData.Contents.forEach((obj) => {
+            const imgKey = obj.Key;
+            const imgIndex = key.indexOf('/');
+            if (imgIndex > -1 && imgIndex.at(-1) != '/') {
+              const imageUrl = `https://${bucketName}.s3.amazonaws.com/${imgKey}`;
+              imageUrls.push(imageUrl);
+            }
+          });
+        });
+        const index = key.indexOf('/');
+        if (index > -1 && key.at(-1) != '/') {
+          const imageUrl = `https://${bucketName}.s3.amazonaws.com/${key}`;
+          imageUrls.push(imageUrl);
+        }
+      });
 
+      images = imageUrls;
+    }
+  });
+};
 app.get('/getImages', (req, res) => {
   try {
-    console.log('heyo');
-    s3.listObjects({ Bucket: bucketName }, function (err, data) {
-      if (err) {
-        console.error(err, err.stack);
-        res.status(500).send(err.message);
-      } else {
-        const imageUrls = [];
-
-        data.Contents.forEach((obj) => {
-          const key = obj.Key;
-          s3.listObjects({ Bucket: bucketName, Prefix: key }, function (
-            err,
-            folderData
-          ) {
-            folderData.Contents.forEach((obj) => {
-              const imgKey = obj.Key;
-              const imgIndex = key.indexOf('/');
-              if (imgIndex > -1 && imgIndex.at(-1) != '/') {
-                const imageUrl = `https://${bucketName}.s3.amazonaws.com/${imgKey}`;
-                imageUrls.push(imageUrl);
-              }
-            });
-          });
-          const index = key.indexOf('/');
-          if (index > -1 && key.at(-1) != '/') {
-            const imageUrl = `https://${bucketName}.s3.amazonaws.com/${key}`;
-            imageUrls.push(imageUrl);
-          }
-        });
-
-        res.send(imageUrls);
-      }
-    });
+    res.send(images);
   } catch (error) {
     res.send(error);
   }
@@ -210,5 +211,7 @@ app.put('/editTimeFrame', (req, res) => {
 });
 
 app.listen(8080, () => {
+  imageGetter();
   console.log(`We're up!`);
+  setInterval(imageGetter, 120000);
 });

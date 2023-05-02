@@ -52,6 +52,8 @@ const StyledModal = styled.div`
 const Modal = ({ src, onClose, setPics, index }) => {
   const deleteFile = () => {
     setPics((pics) => {
+      console.log(index);
+      console.log(pics);
       pics.splice(index, index);
       return pics;
     });
