@@ -157,7 +157,30 @@ app.post('/addImages', (req, res) => {
                 }
               } else {
                 uploadFileToS3();
+
               }
+            });
+          } catch (err) {
+            console.error(err);
+          }
+        }
+
+        if (subfolder) {
+          const uuid = randomUUID();
+          if (!fs.existsSync(join(__dirname, '/../uploads', subfolder))) {
+            fs.mkdir(join(__dirname, '/../uploads', subfolder), (err, path) => {
+              if (err) console.error(err);
+            });
+          }
+          img.mv(
+            join(
+              __dirname,
+              '/../uploads',
+              subfolder,
+              uuid + '.' + fileType.ext
+            ),
+            (e) => {
+              if (e) console.error(e);
             }
           );
           const uploadFileToS3 = async () => {

@@ -47,6 +47,7 @@ const Buttons = styled.div`
 const Pics = () => {
   const location = useLocation();
   const { chosenFiles: initialPics } = location.state;
+
   let [currPage, setCurrPage] = useState(0);
   let [showPic, setShowPic] = useState(false);
   let [selectedPic, setSelectedPic] = useState({ src: '', index: -1 });
@@ -138,6 +139,7 @@ const Pics = () => {
       <Button onClick={submitHandler}>העלה</Button>
     </>
   );
+
 };
 
 export default Pics;

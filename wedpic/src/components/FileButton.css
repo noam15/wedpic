@@ -1,13 +1,29 @@
 .filebutton {
-  border-radius: 50px;
-  border: 0 solid;
-  background: #c77013;
-  padding: 20px;
-  width: 30vw;
-  height: 5em;
+  border-radius: 5px;
+  border: 0.01em solid;
+  background: #b9bed0bb;
+  padding: 1px;
+  border-color: B9BED0;
+  width: 70vw;
+  height: 7vh;
+
   position: fixed;
-  bottom: 2em;
-  right: 35vw;
+  bottom: 7vh;
+  font-size: large;
+  color: #b9bed0;
+}
+
+.btntxt {
+  font-size: small;
+  color: rgb(255, 255, 255);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  transform: translate(-50%, -50%);
+  z-index: -3;
+  font-family: Playfair Display;
+  font-weight: 50;
 }
 
 .transperentbutton {
