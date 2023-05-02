@@ -1,6 +1,6 @@
 import { FaTrash } from 'react-icons/fa';
 
-const Pic = ({ src, onClick, onClose, deleteFile, isModal }) => {
+const Pic = ({ src, onClick, onClose, deleteFile, isModal, index }) => {
   return (
     <div
       className='div-container'
@@ -66,6 +66,7 @@ const Pic = ({ src, onClick, onClose, deleteFile, isModal }) => {
           borderRadius: '1em',
         }}
         src={src}
+        data-pic-index={index}
         alt='img'
       />
     </div>

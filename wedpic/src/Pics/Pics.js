@@ -79,7 +79,14 @@ const Pics = () => {
   if (restOfPics) paginatedPics.push(pics.slice(pics.length - restOfPics));
 
   const openModal = (e) => {
-    setSelectedPic({ src: e.target.src, index: pics.indexOf(e.target.src) });
+    setSelectedPic({
+      src: e.target.src,
+      index: pics.indexOf(
+        pics.filter(
+          (item) => item.name == e.target.getAttribute('data-pic-index')
+        )[0]
+      ),
+    });
     setShowPic(true);
   };
   const submitHandler = () => {
@@ -108,7 +115,12 @@ const Pics = () => {
       <PicsTitle>אישור תמונות</PicsTitle>
       <PicsGrid>
         {currPics.map((src, key) => (
-          <Pic key={key} src={URL.createObjectURL(src)} onClick={openModal} />
+          <Pic
+            key={key}
+            index={src.name}
+            src={URL.createObjectURL(src)}
+            onClick={openModal}
+          />
         ))}
       </PicsGrid>
       <Buttons>

@@ -54,8 +54,8 @@ const Modal = ({ src, onClose, setPics, index }) => {
     setPics((pics) => {
       console.log(index);
       console.log(pics);
-      pics.splice(index, index);
-      return pics;
+      let tempPics = pics.filter((p) => pics.indexOf(p) != index);
+      return tempPics;
     });
     onClose();
   };
