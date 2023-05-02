@@ -23,7 +23,18 @@ const FileButton = () => {
 					className='transperentbutton'
 					onChange={handleFileEvent}
 				/>
-				העלאת תמונות
+				<p
+					style={{
+						position: 'absolute',
+						top: '25%',
+						left: '50%',
+						width: '100%',
+						transform: 'translate(-50%, -50%)',
+						zIndex: -3,
+					}}
+				>
+					העלאת תמונות
+				</p>
 			</button>
 		</>
 	);

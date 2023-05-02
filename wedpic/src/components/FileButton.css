@@ -1,17 +1,29 @@
 .filebutton {
   border-radius: 5px;
   border: 0.01em solid;
-  background: #ffffffdd;
+  background: #b9bed0bb;
   padding: 1px;
-  border-color: rgb(255, 255, 255);
-  width: 35vw;
+  border-color: B9BED0;
+  width: 70vw;
   height: 7vh;
 
   position: fixed;
   bottom: 7vh;
   font-size: large;
-  color: #000000;
+  color: #b9bed0;
+}
+
+.btntxt {
+  font-size: small;
+  color: rgb(255, 255, 255);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  transform: translate(-50%, -50%);
+  z-index: -3;
   font-family: Playfair Display;
+  font-weight: 50;
 }
 
 .transperentbutton {

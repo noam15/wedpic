@@ -19,7 +19,6 @@
   height: 80vh;
 }
 .squarediv {
-  background-color: transparent;
   border-color: #000000;
   border: 10vh;
 }
@@ -57,4 +56,9 @@
 
 .foterstyle {
   padding: 3vh;
+}
+
+.explainingviv {
+  margin: 15vw;
+  font-size: xx-small;
 }
