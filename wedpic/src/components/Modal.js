@@ -52,8 +52,6 @@ const StyledModal = styled.div`
 const Modal = ({ src, onClose, setPics, index }) => {
   const deleteFile = () => {
     setPics((pics) => {
-      console.log(index);
-      console.log(pics);
       let tempPics = pics.filter((p) => pics.indexOf(p) != index);
       return tempPics;
     });
