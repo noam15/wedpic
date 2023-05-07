@@ -34,7 +34,7 @@ const TimeFrame = ({ name, startTime, endTime, id }) => {
 				},
 			};
 		}
-		fetch('http://localhost:8080/editTimeFrame', {
+		fetch('https://wedpic-server.onrender.com/editTimeFrame', {
 			method: 'PUT',
 			body: JSON.stringify(body),
 			headers: {
