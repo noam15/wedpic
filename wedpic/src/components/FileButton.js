@@ -1,6 +1,6 @@
-import './FileButton.css';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import "./FileButton.css";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const FileButton = () => {
 	let navigate = useNavigate();
@@ -26,5 +26,6 @@ const FileButton = () => {
 			</button>
 		</>
 	);
+
 };
 export default FileButton;

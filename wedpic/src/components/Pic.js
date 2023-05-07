@@ -1,3 +1,4 @@
+
 import { FaTrash } from 'react-icons/fa';
 
 const Pic = ({ src, onClick, onClose, deleteFile, isModal, index }) => {
