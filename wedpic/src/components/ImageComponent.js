@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 const ImageComponent = () => {
   const [pics, setPics] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:8080/getImages')
+    fetch('https://wedpic-server.onrender.com/getImages')
       .then((res) => res.json())
       .then((res) => setPics(res));
   }, []);
@@ -21,7 +21,7 @@ import im2 from '../assets/try3.jpg';
 const ImageComponent = () => {
 	const [pics, setPics] = useState([im1, im2, im3]);
 	// useEffect(() => {
-	//   fetch("http://localhost:8080/getImages")
+	//   fetch("https://wedpic-server.onrender.com/getImages")
 	//     .then((res) => res.json())
 	//     .then((res) => setPics(res));
 	// }, []);
