@@ -77,14 +77,20 @@ const Pics = () => {
 	if (restOfPics) paginatedPics.push(pics.slice(pics.length - restOfPics));
 
 	const openModal = (e) => {
-		setSelectedPic({ src: e.target.src, index: pics.indexOf(e.target.src) });
+		setSelectedPic({
+			src: e.target.src,
+			index: pics.indexOf(
+				pics.filter(
+					(item) => item.name == e.target.getAttribute('data-pic-index')
+				)[0]
+			),
+		});
 		setShowPic(true);
 	};
 	const submitHandler = () => {
-		//TODO: Add Cloudinary API support
 		const data = new FormData();
 		pics.forEach((item) => data.append('files', item, item.name));
-		fetch('http://localhost:8080/addImages', {
+		fetch('https://wedpic-server.onrender.com/addImages', {
 			method: 'post',
 			body: data,
 		})
@@ -93,27 +99,36 @@ const Pics = () => {
 	};
 	return (
 		<>
-			<Modal
-				open={showPic}
-				src={selectedPic.src}
-				onClose={() => setShowPic(false)}
-				setPics={setPics}
-				index={selectedPic.index}
-			/>
+			{showPic && (
+				<Modal
+					src={selectedPic.src}
+					onClose={() => setShowPic(false)}
+					setPics={(pics) => {
+						setPics(pics);
+					}}
+					index={selectedPic.index}
+				/>
+			)}
+			<PicsTitle>אישור תמונות</PicsTitle>
 			<PicsGrid>
-				{/* {currPics.map((src, key) => (
-          <Pic key={key} src={src} onCLick={openModal} />
-        ))} */}
+				{currPics.map((src, key) => (
+					<Pic
+						key={key}
+						index={src.name}
+						src={URL.createObjectURL(src)}
+						onClick={openModal}
+					/>
+				))}
 			</PicsGrid>
 			<Buttons>
 				{currPage !== paginatedPics.length - 1 && (
 					<p className='next' onClick={() => setCurrPage((curr) => curr + 1)}>
-						הבא
+						<FaChevronLeft />{' '}
 					</p>
 				)}
 				{currPage !== 0 && (
 					<p className='prev' onClick={() => setCurrPage((curr) => curr - 1)}>
-						הקודם
+						<FaChevronRight />{' '}
 					</p>
 				)}
 			</Buttons>
