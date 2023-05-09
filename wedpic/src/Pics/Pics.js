@@ -97,7 +97,7 @@ const Pics = () => {
       body: data,
     })
       .then((res) => res.text())
-      .then((res) => console.log(res));
+      .then((res) => localStorage.setItem('numOfPics', (parseInt(localStorage.getItem('numOfPics'))+pics.length).toString()));
   };
   return (
     <>
