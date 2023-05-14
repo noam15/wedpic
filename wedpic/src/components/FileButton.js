@@ -16,6 +16,7 @@ const FileButton = () => {
 	return (
 		<>
 			<button className='filebutton'>
+			<div className="btntxt">
 				<input
 					type='file'
 					multiple
@@ -23,6 +24,9 @@ const FileButton = () => {
 					className='transperentbutton'
 					onChange={handleFileEvent}
 				/>
+				כאן מעלים תמונות
+
+				</div>
 			</button>
 		</>
 	);

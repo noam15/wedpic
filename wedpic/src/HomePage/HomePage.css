@@ -22,8 +22,11 @@
   height: 100vh;
 }
 .squarediv {
-  border-color: #000000;
+  border-color: #ffffff;
   border: 10vh;
+  display: flex;
+  flex-direction: row;
+  direction:rtl ;
 }
 
 .App-header {
@@ -46,11 +49,17 @@
 }
 
 .headlinestyle {
-  margin-top: 15vh;
-  font-weight: 600;
+  margin-left: 5vw;
+  margin-top: 20vh;
+  font-weight: 400;
   font-size: xx-large;
-  color: #000000;
+  color: #ffffff;
   font-family: Playfair Display;
+}
+
+.thanksstyle{
+  color: #ffffff;
+  margin-top: 15vh;
 }
 
 .imgdiv {
@@ -65,3 +74,41 @@
   margin: 15vw;
   font-size: xx-small;
 }
+
+.container {
+ 
+
+}
+
+.image {
+  border: 15vw;
+  height: 33vh;
+  width: 40vw;
+  background-image: url("../assets/barwedpic1.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#image1 {
+
+  transform: rotate(-20deg);
+  
+}
+
+#image2 {
+
+  transform: rotate(20deg);
+  margin-top: -2vh;
+
+}
+
+#image3 {
+
+  transform: rotate(-20deg);
+  margin-top: -2vh;
+
+}
+
+
+
