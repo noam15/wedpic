@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Pic from '../components/Pic';
 import Modal from '../components/Modal';
@@ -46,7 +46,7 @@ const Buttons = styled.div`
 `;
 const Pics = () => {
 	const location = useLocation();
-	const initialPics = location.state;
+	const { chosenFiles: initialPics } = location.state;
 	let [currPage, setCurrPage] = useState(0);
 	let [showPic, setShowPic] = useState(false);
 	let [selectedPic, setSelectedPic] = useState({ src: '', index: -1 });
@@ -57,7 +57,9 @@ const Pics = () => {
 	let fullArraysCount = Math.floor(pics.length / 4);
 	let restOfPics = pics.length % 4;
 	useEffect(() => {
-		console.log(pics);
+		(async () => {
+			console.log(await exifr.parse(pics[0]));
+		})();
 		paginatedPics = [];
 		fullArraysCount = Math.floor(pics.length / 4);
 		restOfPics = pics.length % 4;
@@ -70,7 +72,7 @@ const Pics = () => {
 			paginatedPics.pop();
 		}
 		setCurrPics(paginatedPics[currPage]);
-	}, [pics]);
+	}, [pics, currPage]);
 	for (let i = 0; i < fullArraysCount; i++) {
 		paginatedPics.push(pics.slice(i * 4, (i + 1) * 4));
 	}
@@ -95,7 +97,12 @@ const Pics = () => {
 			body: data,
 		})
 			.then((res) => res.text())
-			.then((res) => console.log(res));
+			.then((res) =>
+				localStorage.setItem(
+					'numOfPics',
+					(parseInt(localStorage.getItem('numOfPics')) + pics.length).toString()
+				)
+			);
 	};
 	return (
 		<>
