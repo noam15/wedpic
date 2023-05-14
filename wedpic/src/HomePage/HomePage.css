@@ -4,19 +4,22 @@
   height: 100vh;
   width: 100vw;
   overflow-y: scroll;
-  background-color: #a9a3a2;
+  background-image: url("../assets/barwedpicbcbe1_cleanup.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   margin: auto;
   align-items: center;
   text-align: center;
 }
 
 .imagediv {
-  background-image: url("../assets/try5.jpg");
+  background-image: url("../assets/barwedpicbcbe1_cleanup.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   width: 100vw;
-  height: 80vh;
+  height: 100vh;
 }
 .squarediv {
   border-color: #000000;

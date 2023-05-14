@@ -1,7 +1,7 @@
 .filebutton {
   border-radius: 5px;
   border: 0.01em solid;
-  background: #b9bed0bb;
+  background: #ffffffe2;
   padding: 1px;
   border-color: B9BED0;
   width: 70vw;
@@ -10,7 +10,7 @@
   position: fixed;
   bottom: 7vh;
   font-size: large;
-  color: #b9bed0;
+  color: #ffffff;
 }
 
 .btntxt {

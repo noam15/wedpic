@@ -1,4 +1,6 @@
 .ImageComponent {
+ border-radius: 1vh;
+  border: 1vw;
   height: 55vw;
   width: 46vw;
   object-fit: cover;
