@@ -96,20 +96,17 @@ const Pics = () => {
 		fetch('https://wedpic-server.onrender.com/addImages', {
 			method: 'post',
 			body: data,
-		})
-			.then((res) => res.text())
-			.then(() => {
-				localStorage.setItem(
-					'numOfPics',
-					(
-						parseInt(
-							Number.isInteger(localStorage.getItem('numOfPics'))
-								? localStorage.getItem('numOfPics')
-								: '0'
-						) + pics.length
-					).toString()
-				);
-			});
+		}).then((res) => res.text());
+		localStorage.setItem(
+			'numOfPics',
+			(
+				parseInt(
+					Number.isInteger(localStorage.getItem('numOfPics'))
+						? localStorage.getItem('numOfPics')
+						: '0'
+				) + pics.length
+			).toString()
+		);
 		navigate('/thank-you');
 	};
 	return (
