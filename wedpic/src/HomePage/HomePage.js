@@ -2,6 +2,7 @@ import FileButton from '../components/FileButton';
 import ImageComponent from '../components/ImageComponent';
 import './HomePage.css';
 function HomePage() {
+	const numOfUploadedPics = localStorage.getItem('numOfPics');
 	return (
 		<div className='HomePage'>
 			<div className='squarediv'>
@@ -11,7 +12,11 @@ function HomePage() {
 					<img id='image3' class='image' />
 				</div>
 				<div className='App-header'>
-					<a className='headlinestyle'> ברוכים הבאים לחתונה של ישי ובר</a>
+					<a className='headlinestyle'>
+						<p>ברוכים הבאים</p>
+						<p>לחתונה של</p>
+						<p>ישי ובר</p>
+					</a>
 					<div className='thanksstyle'>איזה כיף שבאתם</div>
 					<div className='explainingviv'></div>
 				</div>
