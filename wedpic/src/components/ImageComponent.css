@@ -1,4 +1,12 @@
-.ImageComponent{
-
-
+.ImageComponent {
+  height: 55vw;
+  width: 46vw;
+  object-fit: cover;
+  margin: 1.5vw;
+  border-color: rgb(255, 255, 255);
+}
+.imggridComponent {
+  margin-top: 20vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
