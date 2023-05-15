@@ -4,7 +4,7 @@ import "./ThankYou.css"
 const ThankYou = () => {
 	return <div className="placer">
 		<p className="text1">תודה על העלאת התמונות</p>
-		<img  className='image' />
+		<div  className="imageminons"  />
 		<p className="text2">זהו, אתם יכולים לסגור את הדף </p>
 		
 	</div>
