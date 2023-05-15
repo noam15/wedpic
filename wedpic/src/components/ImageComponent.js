@@ -10,12 +10,12 @@ const ImageComponent = () => {
 			.then((res) => setPics(res));
 	}, []);
 	return (
-		<>
+		<div className='imggridComponent'>
 			{pics &&
 				pics.map((pic, key) => (
-					<img src={'data:image/png;base64,' + pic} key={key} />
+					<img className='ImageComponent' src={pic} key={key} />
 				))}
-		</>
+		</div>
 	);
 };
 export default ImageComponent;

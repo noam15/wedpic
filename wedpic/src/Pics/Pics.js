@@ -46,6 +46,7 @@ const Buttons = styled.div`
 `;
 const Pics = () => {
 	const location = useLocation();
+	const navigate = useNavigate();
 	const { chosenFiles: initialPics } = location.state;
 	let [currPage, setCurrPage] = useState(0);
 	let [showPic, setShowPic] = useState(false);
@@ -97,12 +98,19 @@ const Pics = () => {
 			body: data,
 		})
 			.then((res) => res.text())
-			.then((res) =>
+			.then(() => {
 				localStorage.setItem(
 					'numOfPics',
-					(parseInt(localStorage.getItem('numOfPics')) + pics.length).toString()
-				)
-			);
+					(
+						parseInt(
+							Number.isInteger(localStorage.getItem('numOfPics'))
+								? localStorage.getItem('numOfPics')
+								: '0'
+						) + pics.length
+					).toString()
+				);
+			});
+		navigate('/thank-you');
 	};
 	return (
 		<>

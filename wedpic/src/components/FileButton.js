@@ -1,7 +1,4 @@
 import './FileButton.css';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './FileButton.css';
 import { useNavigate } from 'react-router-dom';
 
 const FileButton = ({ numOfUploadedPics }) => {
@@ -32,18 +29,6 @@ const FileButton = ({ numOfUploadedPics }) => {
 					className='transperentbutton'
 					onChange={handleFileEvent}
 				/>
-				<p
-					style={{
-						position: 'absolute',
-						top: '25%',
-						left: '50%',
-						width: '100%',
-						transform: 'translate(-50%, -50%)',
-						zIndex: -3,
-					}}
-				>
-					העלאת תמונות
-				</p>
 			</button>
 		</>
 	);
