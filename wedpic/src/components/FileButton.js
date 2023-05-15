@@ -21,7 +21,7 @@ const FileButton = ({ numOfUploadedPics }) => {
         className='filebutton'
         disabled={numOfUploadedPics >= 10 ? true : false}
       >
-        <p className='btntxt'>העלאת תמונות</p>
+        <p className='btntxt'>כאן מעלים תמונות</p>
         <input
           type='file'
           multiple

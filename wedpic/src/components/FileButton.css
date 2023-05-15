@@ -1,35 +1,33 @@
 .filebutton {
-  border-radius: 20px;
-  border: 0;
-  background: #b9bed0bb;
-  width: 70vw;
-  height: 7vh;
-  position: fixed;
-  bottom: 7vh;
-  padding: 0;
+	border-radius: 200px;
+	border: 0.01em solid;
+	background: #ffffffe2;
+	padding: 1px;
+	border-color: B9BED0;
+	width: 70vw;
+	height: 7vh;
+
+	position: fixed;
+	bottom: 7vh;
+	font-size: large;
+	color: #ffffff;
 }
 
 .btntxt {
-  color: white;
-  font-size: 1.5em;
-  line-height: 7vh;
-  position: absolute;
-  margin-top: 0;
-  width:70vw
-  /* font-size: small;
-  color: rgb(255, 255, 255);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  transform: translate(-50%, -50%);
-  z-index: -3;
-  font-family: Playfair Display;
-  font-weight: 50; */
+	font-size: small;
+	color: rgb(0, 0, 0);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 100%;
+	transform: translate(-50%, -50%);
+	z-index: -3;
+	font-family: Playfair Display;
+	font-weight: 50;
 }
 
 .transperentbutton {
-  opacity: 0%;
-  height: 7vh;
-  width: 100%;
+	opacity: 0%;
+	height: 7vh;
+	width: 100%;
 }
