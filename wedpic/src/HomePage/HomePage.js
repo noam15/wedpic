@@ -6,10 +6,10 @@ function HomePage() {
 	return (
 		<div className='HomePage'>
 			<div className='squarediv'>
-				<div class='container'>
-					<img id='image1' class='image' />
-					<img id='image2' class='image' />
-					<img id='image3' class='image' />
+				<div className='container'>
+					<img id='image1' className='image' />
+					<img id='image2' className='image' />
+					<img id='image3' className='image' />
 				</div>
 				<div className='App-header'>
 					<a className='headlinestyle'>
