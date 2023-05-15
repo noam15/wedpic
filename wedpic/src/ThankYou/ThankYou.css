@@ -16,10 +16,12 @@
 
 }
 .imageminons {
+    align-items: center;
+	text-align: center;
 	border: 15vw;
 	height: 33vh;
 	width: 50vw;
-	background-image: url('../assets/minion-love-kevin-love.gif');
+	
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
