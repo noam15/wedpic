@@ -7,8 +7,8 @@ const Pic = ({ src, onClick, onClose, deleteFile, isModal, index }) => {
       style={{
         maxWidth: '35vw',
         margin: 'auto',
-        background: '#f6f6f6',
-        height: '45vw',
+        background: 'white',
+        height: '25vh',
         borderRadius: '.1em',
         display: 'flex',
         justifyContent: 'center',
@@ -61,7 +61,7 @@ const Pic = ({ src, onClick, onClose, deleteFile, isModal, index }) => {
           width: '35vw',
           minWidth: '35vw',
           padding: '.2em',
-          height: '45vw',
+          height: '25vh',
           objectFit: 'cover',
           borderRadius: '.1em',
         }}
