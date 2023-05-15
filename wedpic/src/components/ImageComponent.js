@@ -2,6 +2,7 @@ import './ImageComponent.css';
 import React from 'react';
 import { useState, useEffect } from 'react';
 
+
 const ImageComponent = () => {
 	const [pics, setPics] = useState([]);
 	useEffect(() => {
