@@ -1,5 +1,14 @@
+import "./ThankYou.css"
+
+
 const ThankYou = () => {
-	return <p>תודה על העלאת התמונות, אתם יכולים לסגור את הדף</p>;
+	return <div className="placer">
+		<p className="text1">תודה על העלאת התמונות</p>
+		<img  className='image' />
+		<p className="text2">זהו, אתם יכולים לסגור את הדף </p>
+		
+	</div>
+	
 };
 
 export default ThankYou;

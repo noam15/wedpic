@@ -1,0 +1,28 @@
+.text1{
+    font-size: 9.5vw;
+	color: #ffffff;
+	font-family: 'mixtape';
+}
+
+.text2{
+    font-size: 8vw;
+	color: #ffffff;
+	font-family: 'Gulash';
+}
+.placer{
+    align-items: center;
+	text-align: center;
+    margin-top: 20vh;
+
+}
+.image {
+	border: 15vw;
+	height: 33vh;
+	width: 50vw;
+	background-image: url('../assets/minion-love-kevin-love.gif');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	border: 0.5vh solid white;
+}
+
