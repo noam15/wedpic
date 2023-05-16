@@ -72,9 +72,7 @@ const Pics = () => {
 	let fullArraysCount = Math.floor(pics.length / 4);
 	let restOfPics = pics.length % 4;
 	useEffect(() => {
-		(async () => {
-			console.log(await exifr.parse(pics[0]));
-		})();
+		if (pics.length == 0) navigate('/');
 		paginatedPics = [];
 		fullArraysCount = Math.floor(pics.length / 4);
 		restOfPics = pics.length % 4;
@@ -83,7 +81,8 @@ const Pics = () => {
 		}
 		if (restOfPics) paginatedPics.push(pics.slice(pics.length - restOfPics));
 		if (!paginatedPics[currPage]) {
-			setCurrPage(paginatedPics.length - 1);
+			setCurrPage((curr) => curr - 1);
+			setCurrPics(paginatedPics[currPage - 2]);
 			paginatedPics.pop();
 		}
 		setCurrPics(paginatedPics[currPage]);
@@ -148,14 +147,15 @@ const Pics = () => {
 				אישור סופי ואחרון בלי חרטות
 			</p>
 			<PicsGrid>
-				{currPics.map((src, key) => (
-					<Pic
-						key={key}
-						index={src.name}
-						src={URL.createObjectURL(src)}
-						onClick={openModal}
-					/>
-				))}
+				{currPics &&
+					currPics.map((src, key) => (
+						<Pic
+							key={key}
+							index={src.name}
+							src={URL.createObjectURL(src)}
+							onClick={openModal}
+						/>
+					))}
 			</PicsGrid>
 			<Buttons>
 				{currPage !== paginatedPics.length - 1 && (
