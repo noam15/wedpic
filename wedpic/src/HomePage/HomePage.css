@@ -1,19 +1,123 @@
+@font-face {
+	font-family: 'Gulash';
+	src: url('../assets/f42fc9e2-c229-4f9e-bcc4-774e2ac3747a.ttf');
+}
+
+@font-face {
+	font-family: 'mixtape';
+	src: url('../assets/mixtape-regular-fm.ttf');
+}
+
 .HomePage {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-  overflow-y: scroll;
+	display: flex;
+	flex-direction: column;
+
+	
+	background-image: url('../assets/barwedpicbcbe1_cleanup.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	margin: auto;
+	align-items: center;
+	text-align: center;
+	overflow-x: hidden;
+}
+.squarediv {
+	border-color: #ffffff;
+	border: 10vh;
+	display: flex;
+	flex-direction: row;
+	direction: rtl;
 }
 
 .App-header {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  background-color: blue;
-  height: 100vh;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+
+	height: 100vh;
+	margin: auto;
+	align-items: center;
+	text-align: center;
 }
 
 .App-grid {
-  display: grid;
+	display: grid;
+	margin: auto;
+	padding: 20vmin;
+	align-items: center;
+	text-align: center;
+}
+
+.headlinestyle {
+	margin-left: 5vw;
+	margin-top: 20vh;
+	color: #ffffff;
+	font-family: 'mixtape';
+}
+.headlinestyle p:nth-child(1) {
+	margin: 2vh 0;
+	font-size: 3.5em;
+}
+.headlinestyle p:nth-child(2) {
+	margin: 2vh 0;
+	font-size: 2.5em;
+}
+.headlinestyle p:nth-child(3) {
+	margin: 2vh 0;
+	font-size: 4em;
+}
+
+.thanksstyle {
+	color: #ffffff;
+	margin-top: 15vh;
+	font-size: 3em;
+	font-family: 'Gulash';
+}
+
+.imgdiv {
+	text-align: right;
+}
+
+.foterstyle {
+	padding: 3vh;
+}
+
+.explainingviv {
+	margin: 15vw;
+	font-size: xx-small;
+}
+
+.image {
+	border: 15vw;
+	height: 33vh;
+	width: 45vw;
+	background-image: url('../assets/barwedpic1.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	border: 0.5vh solid white;
+}
+
+#image1 {
+	margin-top: 5vh;
+	transform: rotate(-15deg);
+
+	margin-right: -15vw;
+}
+
+#image2 {
+	transform: rotate(15deg);
+	margin-top: -2vh;
+	margin-right: -5vw;
+	z-index: 199;
+	position: relative;
+	border: 0.5vh solid white;
+}
+
+#image3 {
+	transform: rotate(-15deg);
+	margin-top: -1vh;
+	margin-right: -30vw;
+	border: 0.5vh solid white;
 }

@@ -1,12 +1,22 @@
-import "./ImageComponent.css"
-//import logo from '../trypicfierwork.jpg';
+import './ImageComponent.css';
+import React from 'react';
+import { useState, useEffect } from 'react';
 
-const ImageComponent=()=>{
-    return (        
-    <>
-    <img src="../trypicfierwork.jpg" height={200} width={200}></img>
-    </>
-          
-      )
-}
-export default ImageComponent
+
+const ImageComponent = () => {
+	const [pics, setPics] = useState([]);
+	useEffect(() => {
+		fetch('https://wedpic-server.onrender.com/getImages')
+			.then((res) => res.json())
+			.then((res) => setPics(res));
+	}, []);
+	return (
+		<div className='imggridComponent'>
+			{pics &&
+				pics.map((pic, key) => (
+					<img className='ImageComponent' src={pic} key={key} />
+				))}
+		</div>
+	);
+};
+export default ImageComponent;
